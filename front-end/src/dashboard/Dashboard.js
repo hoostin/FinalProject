@@ -18,11 +18,11 @@ function Dashboard({ date }) {
 	const history = useHistory();
 	useEffect(() => {
 		if (!theDate) history.push(`/dashboard?date=${date}`);
-	}, [query]);
+	}, [query, history, theDate, date]);
 	useEffect(loadDashboard, [date]);
 	useEffect(() => {}, [reservations]);
 	function loadDashboard() {
-		if (theDate != date) {
+		if (theDate !== date) {
 			history.push(`/dashboard?date=${date}`);
 		}
 		const abortController = new AbortController();

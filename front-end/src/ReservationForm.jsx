@@ -17,18 +17,28 @@ export default function ReservationForm() {
 		const changeObj = { ...formData };
 		if (event.target.id === `mobile_number`) {
 			let phoneNumber = event.target.value;
-			if (phoneNumber.length === 3 || phoneNumber.length === 7) {
+
+			if (phoneNumber.length === 3) {
 				if (formData.mobile_number.length < phoneNumber.length) {
 					phoneNumber += "-";
 					event.target.value = phoneNumber;
 				}
 			}
-			if (phoneNumber.length >= 9 && !phoneNumber.includes("-")) {
-				const temp1 = phoneNumber.substr(0, 3);
-				const temp2 = phoneNumber.substr(3, 3);
-				const temp3 = phoneNumber.substr(6, 4);
-				phoneNumber = `${temp1}-${temp2}-${temp3}`;
-				event.target.value = phoneNumber;
+
+			if (phoneNumber.length >= 9) {
+				if (!phoneNumber.includes("-")) {
+					const temp1 = phoneNumber.substr(0, 3);
+					const temp2 = phoneNumber.substr(3, 3);
+					const temp3 = phoneNumber.substr(6, 4);
+					phoneNumber = `${temp1}-${temp2}-${temp3}`;
+					event.target.value = phoneNumber;
+				} else if (phoneNumber[7] !== "-") {
+					const temp1 = phoneNumber.substr(0, 3);
+					const temp2 = phoneNumber.substr(4, 3);
+					const temp3 = phoneNumber.substr(7, 4);
+					phoneNumber = `${temp1}-${temp2}-${temp3}`;
+					event.target.value = phoneNumber;
+				}
 			}
 			if (phoneNumber.length > 12) {
 				phoneNumber = phoneNumber.slice(0, 12);
@@ -81,13 +91,13 @@ export default function ReservationForm() {
 					<label htmlFor="mobile_number">Phone Number</label>
 					<input
 						id="mobile_number"
-						type="tel"
+						type="text"
 						name="mobile_number"
 						onChange={formChange}
 						value={formData.mobile_number}
-						placeholder="xxx-xxx-xxxx"
+						placeholder="xxx-xxx-xxxx or xxx-xxxx"
 						className="form-control"
-						pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
+						pattern="([0-9]{3}-)?[0-9]{3}-[0-9]{4}"
 						required
 					></input>
 					<label htmlFor="reservation_date">Reservation Date</label>
