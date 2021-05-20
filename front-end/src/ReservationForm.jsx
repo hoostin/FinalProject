@@ -17,7 +17,10 @@ export default function ReservationForm() {
 		const changeObj = { ...formData };
 		if (event.target.id === `mobile_number`) {
 			let phoneNumber = event.target.value;
-
+			if (phoneNumber[phoneNumber.length - 1] === "-") {
+				phoneNumber = phoneNumber.slice(0, phoneNumber.length - 1);
+				event.target.value = phoneNumber;
+			}
 			if (phoneNumber.length === 3) {
 				if (formData.mobile_number.length < phoneNumber.length) {
 					phoneNumber += "-";
