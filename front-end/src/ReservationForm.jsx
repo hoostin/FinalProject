@@ -5,10 +5,31 @@ export default function ReservationForm() {
 	const history = useHistory();
 	const formChange = (event) => {
 		const changeObj = { ...formData };
+		if (event.target.id === `mobile_number`) {
+			let phoneNumber = event.target.value;
+			if (phoneNumber.length === 3 || phoneNumber.length === 7) {
+				if (formData.mobile_number.length < phoneNumber.length) {
+					phoneNumber += "-";
+					event.target.value = phoneNumber;
+				}
+			}
+			if (phoneNumber.length >= 9 && !phoneNumber.includes("-")) {
+				const temp1 = phoneNumber.substr(0, 3);
+				const temp2 = phoneNumber.substr(3, 3);
+				const temp3 = phoneNumber.substr(6, 4);
+				phoneNumber = `${temp1}-${temp2}-${temp3}`;
+				event.target.value = phoneNumber;
+			}
+			if (phoneNumber.length > 12) {
+				phoneNumber = phoneNumber.slice(0, 12);
+				event.target.value = phoneNumber;
+			}
+		}
 		changeObj[event.target.id] = event.target.value;
 		changeObj.people = Number(changeObj.people);
 		setFormData(changeObj);
 	};
+
 	const theSubmit = (event) => {
 		event.preventDefault();
 		const abortController = new AbortController();
@@ -17,11 +38,11 @@ export default function ReservationForm() {
 		);
 	};
 	const [formData, setFormData] = useState({
-		first_name: "John",
-		last_name: "Smith",
-		mobile_number: null,
-		reservation_date: null,
-		reservation_time: null,
+		first_name: "",
+		last_name: "",
+		mobile_number: "",
+		reservation_date: "",
+		reservation_time: "",
 		people: 1,
 	});
 	return (
@@ -36,6 +57,7 @@ export default function ReservationForm() {
 					value={formData.first_name}
 					placeholder="John"
 					className="form-control"
+					required
 				></input>
 				<label htmlFor="last_name">Last Name</label>
 				<input
@@ -46,16 +68,19 @@ export default function ReservationForm() {
 					value={formData.last_name}
 					placeholder="Smith"
 					className="form-control"
+					required
 				></input>
 				<label htmlFor="mobile_number">Phone Number</label>
 				<input
 					id="mobile_number"
-					type="text"
+					type="tel"
 					name="mobile_number"
 					onChange={formChange}
 					value={formData.mobile_number}
 					placeholder="xxx-xxx-xxxx"
 					className="form-control"
+					pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
+					required
 				></input>
 				<label htmlFor="reservation_date">Reservation Date</label>
 				<input
@@ -67,6 +92,7 @@ export default function ReservationForm() {
 					placeholder="YYYY-MM-DD"
 					pattern="\d{4}-\d{2}-\d{2}"
 					className="form-control"
+					required
 				/>
 
 				<label htmlFor="reservation_time">Reservation Time</label>
@@ -79,6 +105,7 @@ export default function ReservationForm() {
 					placeholder="HH:MM"
 					pattern="[0-9]{2}:[0-9]{2}"
 					className="form-control"
+					required
 				/>
 				<label htmlFor="people">Party Size</label>
 				<input
@@ -89,6 +116,7 @@ export default function ReservationForm() {
 					type="number"
 					className="form-control"
 					min="1"
+					required
 				/>
 			</div>
 
