@@ -2,15 +2,8 @@ import React, { useState } from "react";
 import { createReservations } from "./utils/api";
 import { useHistory } from "react-router-dom";
 import ErrorAlert from "./layout/ErrorAlert";
-import { previous } from "./utils/date-time";
-import {
-	mobileValidate,
-	isTuesday,
-	isPast,
-	isTimeOpen,
-	isTimeValid,
-	theValidator,
-} from "./utils/validate";
+
+import { mobileValidate, theValidator } from "./utils/validate";
 export default function ReservationForm() {
 	const history = useHistory();
 	const [formData, setFormData] = useState({
@@ -29,38 +22,7 @@ export default function ReservationForm() {
 			phoneNumber = mobileValidate(phoneNumber, formData.mobile_number.length);
 			event.target.value = phoneNumber;
 		}
-		// if (event.target.id === `reservation_date`) {
-		// 	let bad = false;
-		// 	let message = "";
-		// 	if (isTuesday(event.target.value)) {
-		// 		message += "  /Closed Tuesdays";
-		// 		bad = true;
-		// 	}
-		// 	if (isPast(event.target.value)) {
-		// 		message += " /Must be in Future";
-		// 		bad = true;
-		// 	}
-		// 	if (bad) {
-		// 		if (error) setError(new Error(message + error.message));
-		// 		else setError(new Error(message));
-		// 		event.target.value = null;
-		// 	} else {
-		// 		setTimeout(setError(null), 5000);
-		// 	}
-		// }
-		// if (event.target.id === `reservation_time`) {
-		// 	let bad = false;
-		// 	let message = "";
 
-		// 	if (!isTimeOpen(event.target.value)) {
-		// 		bad = true;
-		// 	}
-		// 	if (bad) {
-		// 		event.target.value = null;
-		// 	} else {
-		// 		setTimeout(setError(null), 5000);
-		// 	}
-		// }
 		changeObj[event.target.id] = event.target.value;
 		changeObj.people = Number(changeObj.people);
 		setFormData(changeObj);
@@ -69,16 +31,7 @@ export default function ReservationForm() {
 	const theSubmit = (event) => {
 		event.preventDefault();
 		const abortController = new AbortController();
-		// const validate = () => {
-		// 	setError(null);
-		// 	let message = "";
-		// 	if (!formData.reservation_time) {
-		// 		message += "  /Closed only open 10:30 AM - 10:30 PM with 1hr window ";
-		// 		setError(new Error(message));
-		// 		return false;
-		// 	}
-		// 	return true;
-		// };
+
 		if (theValidator(formData, setError)) {
 			createReservations(formData, abortController.signal)
 				.then(() =>
@@ -137,7 +90,6 @@ export default function ReservationForm() {
 						onChange={formChange}
 						value={formData.reservation_date}
 						type="date"
-						//min={previous(new Date().toISOString().split("T")[0])}
 						placeholder="YYYY-MM-DD"
 						pattern="\d{4}-\d{2}-\d{2}"
 						className="form-control"

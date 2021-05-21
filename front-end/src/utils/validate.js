@@ -12,6 +12,9 @@ export function theValidator(formData, setError) {
 	if (isPast(formData.reservation_date)) {
 		message += " /Must be in Future";
 	}
+	if (!isTimeValid(formData.reservation_time, formData.reservation_date)) {
+		message += "/ Must be in Future ";
+	}
 	if (message.length) {
 		setError(new Error(message));
 		return false;
@@ -68,23 +71,23 @@ export function isPast(date) {
 
 	return newDate.getTime() < new Date().getTime();
 }
-// export function isTimeValid(time, date) {
-// 	if (date === today()) {
-// 		const now = new Date();
-// 		const timeArr = time.split(":");
-// 		const hour = Number(timeArr[0]);
-// 		const min = Number(timeArr[1]);
-// 		if (now.getHours() >= hour) {
-// 			if (now.getHours() == hour) {
-// 				if (now.getMinutes() < min) {
-// 					return true;
-// 				}
-// 				return false;
-// 			}
-// 		}
-// 	}
-// 	return true;
-// }
+export function isTimeValid(time, date) {
+	if (date === today()) {
+		const now = new Date();
+		const timeArr = time.split(":");
+		const hour = Number(timeArr[0]);
+		const min = Number(timeArr[1]);
+		if (now.getHours() >= hour) {
+			if (now.getHours() == hour) {
+				if (now.getMinutes() < min) {
+					return true;
+				}
+				return false;
+			}
+		}
+	}
+	return true;
+}
 export function isTimeOpen(time) {
 	const timeArr = time.split(":");
 	const hour = Number(timeArr[0]);

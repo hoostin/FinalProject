@@ -65,14 +65,25 @@ async function validate(req, res, next) {
 							"reservation_date must not be a Tuesday we're closed you fool",
 					});
 			}
-			if (
-				theValue === `reservation_time` &&
-				!/[0-9]{2}:[0-9]{2}/.test(added[theValue])
-			) {
-				return next({
-					status: 400,
-					message: "reservation_time must be a time you fool",
-				});
+			if (theValue === `reservation_time`) {
+				if (!/[0-9]{2}:[0-9]{2}/.test(added[theValue])) {
+					return next({
+						status: 400,
+						message: "reservation_time must be a time you fool",
+					});
+				}
+				if (!theValidator.isTimeOpen(added[theValue])) {
+					return next({
+						status: 400,
+						message: "Closed only open 10:30 AM - 10:30 PM with 1hr window",
+					});
+				}
+				if (!theValidator.isTimeValid(added[theValue])) {
+					return next({
+						status: 400,
+						message: " Must be in Future ",
+					});
+				}
 			}
 			if (!added[theValue])
 				return next({
