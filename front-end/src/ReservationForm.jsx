@@ -3,7 +3,7 @@ import { createReservations } from "./utils/api";
 import { useHistory } from "react-router-dom";
 import ErrorAlert from "./layout/ErrorAlert";
 import { previous } from "./utils/date-time";
-import { mobileValidate } from "./utils/validate";
+import { mobileValidate, isTuesday, isPast } from "./utils/validate";
 export default function ReservationForm() {
 	const history = useHistory();
 	const [formData, setFormData] = useState({
@@ -19,8 +19,27 @@ export default function ReservationForm() {
 		const changeObj = { ...formData };
 		if (event.target.id === `mobile_number`) {
 			let phoneNumber = event.target.value;
-			phoneNumber = mobileValidate(phoneNumber,formData.mobile_number.length);
+			phoneNumber = mobileValidate(phoneNumber, formData.mobile_number.length);
 			event.target.value = phoneNumber;
+		}
+		if (event.target.id === `reservation_date`) {
+			let bad = false;
+			let message = "";
+			if (isTuesday(event.target.value)) {
+				message += "  /Closed Tuesdays";
+				bad = true;
+			}
+			if (isPast(event.target.value)) {
+				message += " /Must be in Future";
+				bad = true;
+			}
+			if (bad) {
+				if (error) setError(new Error(message + error.message));
+				else setError(new Error(message));
+				event.target.value = null;
+			} else {
+				setTimeout(setError(null), 5000);
+			}
 		}
 		changeObj[event.target.id] = event.target.value;
 		changeObj.people = Number(changeObj.people);
@@ -84,7 +103,7 @@ export default function ReservationForm() {
 						onChange={formChange}
 						value={formData.reservation_date}
 						type="date"
-						min={previous(new Date().toISOString().split("T")[0])}
+						//min={previous(new Date().toISOString().split("T")[0])}
 						placeholder="YYYY-MM-DD"
 						pattern="\d{4}-\d{2}-\d{2}"
 						className="form-control"

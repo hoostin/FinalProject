@@ -1,4 +1,4 @@
-export function mobileValidate(phoneNumber,currentLength) {
+export function mobileValidate(phoneNumber, currentLength) {
 	if (phoneNumber[phoneNumber.length - 1] === "-") {
 		phoneNumber = phoneNumber.slice(0, phoneNumber.length - 1);
 	}
@@ -25,4 +25,24 @@ export function mobileValidate(phoneNumber,currentLength) {
 		phoneNumber = phoneNumber.slice(0, 12);
 	}
 	return phoneNumber;
+}
+
+export function isTuesday(date) {
+	const temp = date.split("-");
+	const newDate = new Date(
+		Number(temp[0]),
+		Number(temp[1]) - 1,
+		Number(temp[2])
+	);
+	return newDate.getDay() === 2;
+}
+export function isPast(date) {
+	const temp = date.split("-");
+	const newDate = new Date(
+		Number(temp[0]),
+		Number(temp[1]) - 1,
+		Number(temp[2])
+	);
+
+	return newDate.getTime() < new Date().getTime();
 }

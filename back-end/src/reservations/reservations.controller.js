@@ -4,6 +4,9 @@
 //const { whereNotExists } = require("../db/connection");
 const asyncErrorBoundary = require("../errors/asyncErrorBoundary");
 const service = require("./reservations.service");
+const theValidator = require("../../../front-end/src/utils/validateTest");
+//const { isPast, isTuesday } = require("../../../front-end/src/utils/validate");
+
 async function list(req, res) {
 	const reservations = await service.listByDate(req.query.date);
 	res.json({
@@ -43,14 +46,24 @@ async function validate(req, res, next) {
 					});
 				}
 			}
-			if (
-				theValue === `reservation_date` &&
-				!/\d{4}-\d{2}-\d{2}/.test(added[theValue])
-			) {
-				return next({
-					status: 400,
-					message: "reservation_date must be a date you fool",
-				});
+			if (theValue === `reservation_date`) {
+				if (!/\d{4}-\d{2}-\d{2}/.test(added[theValue])) {
+					return next({
+						status: 400,
+						message: "reservation_date must be a date you fool",
+					});
+				}
+				if (theValidator.isPast(added[theValue]))
+					return next({
+						status: 400,
+						message: "reservation_date must be a date in the future you fool",
+					});
+				if (theValidator.isTuesday(added[theValue]))
+					return next({
+						status: 400,
+						message:
+							"reservation_date must not be a Tuesday we're closed you fool",
+					});
 			}
 			if (
 				theValue === `reservation_time` &&

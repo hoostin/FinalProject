@@ -1,14 +1,14 @@
 export default function Reservation({ data }) {
 	return (
-		<div class="card">
-			<div class="card-body">
-				<h5 class="card-title">
+		<div className="card">
+			<div className="card-body">
+				<h5 className="card-title">
 					Reservation for: {`${data.first_name} ${data.last_name}`}{" "}
 				</h5>
-				<p class="card-text">Phone Number: {data.mobile_number}</p>
-				<p class="card-text">Time: {data.reservation_time}</p>
-				<p class="card-text">Party Size: {data.people}</p>
-				{/* <a href="#" class="btn btn-primary">Go somewhere</a> */}
+				<p className="card-text">Phone Number: {data.mobile_number}</p>
+				<p className="card-text">Time: {data.reservation_time}</p>
+				<p className="card-text">Party Size: {data.people}</p>
+				{/* <a href="#" className="btn btn-primary">Go somewhere</a> */}
 			</div>
 		</div>
 	);
