@@ -3,7 +3,13 @@ import { createReservations } from "./utils/api";
 import { useHistory } from "react-router-dom";
 import ErrorAlert from "./layout/ErrorAlert";
 import { previous } from "./utils/date-time";
-import { mobileValidate, isTuesday, isPast } from "./utils/validate";
+import {
+	mobileValidate,
+	isTuesday,
+	isPast,
+	isTimeOpen,
+	isTimeValid,
+} from "./utils/validate";
 export default function ReservationForm() {
 	const history = useHistory();
 	const [formData, setFormData] = useState({
@@ -31,6 +37,26 @@ export default function ReservationForm() {
 			}
 			if (isPast(event.target.value)) {
 				message += " /Must be in Future";
+				bad = true;
+			}
+			if (bad) {
+				if (error) setError(new Error(message + error.message));
+				else setError(new Error(message));
+				event.target.value = null;
+			} else {
+				setTimeout(setError(null), 5000);
+			}
+		}
+		if (event.target.id === `reservation_time`) {
+			let bad = false;
+			let message = "";
+			if (isTimeValid(event.target.value, formData.reservation_date)) {
+				message +=
+					" /Time is invalid because it has happened check your watch ";
+				bad = false;
+			}
+			if (!isTimeOpen(event.target.value)) {
+				message += "  /Closed only open 10:30 AM - 10:30 PM with 1hr window ";
 				bad = true;
 			}
 			if (bad) {

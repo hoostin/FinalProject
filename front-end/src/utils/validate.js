@@ -1,3 +1,5 @@
+import { today } from "./date-time";
+
 export function mobileValidate(phoneNumber, currentLength) {
 	if (phoneNumber[phoneNumber.length - 1] === "-") {
 		phoneNumber = phoneNumber.slice(0, phoneNumber.length - 1);
@@ -41,8 +43,43 @@ export function isPast(date) {
 	const newDate = new Date(
 		Number(temp[0]),
 		Number(temp[1]) - 1,
-		Number(temp[2])
+		Number(temp[2])+1
 	);
 
 	return newDate.getTime() < new Date().getTime();
+}
+export function isTimeValid(time, date) {
+	if (date === today()) {
+		const now = new Date();
+		const timeArr = time.split(":");
+		const hour = Number(timeArr[0]);
+		const min = Number(timeArr[1]);
+		if (now.getHours() >= hour) {
+			if (now.getHours() == hour) {
+				if (now.getMinutes() < min) {
+					return true;
+				}
+				return false;
+			}
+		}
+	}
+	return true;
+}
+export function isTimeOpen(time) {
+	const timeArr = time.split(":");
+	const hour = Number(timeArr[0]);
+	const min = Number(timeArr[1]);
+	if (hour >= 10) {
+		if (hour === 10 && min < 30) {
+			return false;
+		}
+		if (hour >= 21) {
+			if (hour === 21 && min <= 30) {
+				return true;
+			}
+			return false;
+		}
+		return true;
+	}
+	return false;
 }
