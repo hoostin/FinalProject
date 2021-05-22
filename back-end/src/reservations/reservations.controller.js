@@ -42,7 +42,7 @@ async function validate(req, res, next) {
 				if (typeof added[theValue] != `number`) {
 					return next({
 						status: 400,
-						message: "people must be a number you fool",
+						message: "people must be a number ",
 					});
 				}
 			}
@@ -50,26 +50,26 @@ async function validate(req, res, next) {
 				if (!/\d{4}-\d{2}-\d{2}/.test(added[theValue])) {
 					return next({
 						status: 400,
-						message: "reservation_date must be a date you fool",
+						message: "reservation_date must be a date ",
 					});
 				}
 				if (theValidator.isPast(added[theValue]))
 					return next({
 						status: 400,
-						message: "reservation_date must be a date in the future you fool",
+						message: "reservation_date must be a date in the future ",
 					});
 				if (theValidator.isTuesday(added[theValue]))
 					return next({
 						status: 400,
 						message:
-							"reservation_date must not be a Tuesday we're closed you fool",
+							"reservation_date must not be a Tuesday we're closed ",
 					});
 			}
 			if (theValue === `reservation_time`) {
 				if (!/[0-9]{2}:[0-9]{2}/.test(added[theValue])) {
 					return next({
 						status: 400,
-						message: "reservation_time must be a time you fool",
+						message: "reservation_time must be a time ",
 					});
 				}
 				if (!theValidator.isTimeOpen(added[theValue])) {

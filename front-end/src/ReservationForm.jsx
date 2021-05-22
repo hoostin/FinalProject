@@ -3,7 +3,7 @@ import { createReservations } from "./utils/api";
 import { useHistory } from "react-router-dom";
 import ErrorAlert from "./layout/ErrorAlert";
 
-import { mobileValidate, theValidator } from "./utils/validate";
+const { mobileValidate, theValidator } = require("./utils/validateTest");
 export default function ReservationForm() {
 	const history = useHistory();
 	const [formData, setFormData] = useState({
