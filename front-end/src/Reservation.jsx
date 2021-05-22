@@ -8,7 +8,6 @@ export default function Reservation({ data }) {
 				<p className="card-text">Phone Number: {data.mobile_number}</p>
 				<p className="card-text">Time: {data.reservation_time}</p>
 				<p className="card-text">Party Size: {data.people}</p>
-				{/* <a href="#" className="btn btn-primary">Go somewhere</a> */}
 			</div>
 		</div>
 	);
