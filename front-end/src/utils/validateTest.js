@@ -34,7 +34,7 @@ function theValidator(formData, setError) {
 	if (!compareKeys(formData, test) || !notNull(formData)) {
 		message =
 			"Invalid data format provided. Requires {string: [first_name, last_name, mobile_number], date: reservation_date, time: reservation_time, number: people}";
-		console.log("HERE 1");
+
 		setError(new Error(message));
 		return false;
 	}
@@ -61,7 +61,6 @@ function theValidator(formData, setError) {
 	}
 
 	if (message.length) {
-		console.log("HERE");
 		setError(new Error(message));
 		return false;
 	} else {

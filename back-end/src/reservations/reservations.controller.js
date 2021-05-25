@@ -25,7 +25,6 @@ async function validate(req, res, next) {
 				"Invalid data format provided. Requires {string: [first_name, last_name, mobile_number], date: reservation_date, time: reservation_time, number: people}",
 		});
 	if (!theValidator(added, setError) || typeof added.people != "number") {
-		console.log("MESSSSAGE:", message);
 		if (!message) {
 			message = "people must be a number";
 		}

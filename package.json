@@ -24,7 +24,7 @@
     "test:2": "npx npm-run-all -s test:2:*",
     "test:2:frontend": "npm run test:2 --prefix ./front-end",
     "test:2:backend": "npm run test:2 --prefix ./back-end",
-    "test:3": "npx npm-run-all -s test:3:*",
+    "test:3": "npm run test:3 --prefix ./front-end npm run test:3 --prefix ./back-end",
     "test:3:frontend": "npm run test:3 --prefix ./front-end",
     "test:3:backend": "npm run test:3 --prefix ./back-end",
     "test:4": "npx npm-run-all -s test:4:*",
