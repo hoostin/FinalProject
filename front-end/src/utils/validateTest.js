@@ -39,15 +39,27 @@ function tableValidator(formData, setError) {
 		capacity: 0,
 		reservation_id: null,
 	};
+	const test2 = {
+		table_name: null,
+		capacity: 0,
+	};
+	let temp = { ...formData, reservation_id: 1 };
 	let message = "";
-	if (!compareKeys(formData, test)) {
+	if (!compareKeys(formData, test) && !compareKeys(formData, test2)) {
 		message =
 			"Invalid data format provided. Requires {string: table_name, number: capacity}";
 		setError(new Error(message));
 		return false;
 	}
+	if (!notNull(temp)) {
+		message =
+			"Invalid data format provided. Requires {string: table_name, number: capacity}";
+		setError(new Error(message));
+		return false;
+	}
+
 	if (formData.table_name.length < 2) {
-		message = "Table Name must be at least 2 characters";
+		message = "table_name must be at least 2 characters";
 		setError(new Error(message));
 		return false;
 	}
