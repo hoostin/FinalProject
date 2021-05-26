@@ -7,6 +7,7 @@ const { tableValidator } = require("./utils/validateTest");
 
 export default function TableForm() {
 	const history = useHistory();
+	const [capacityChange, setCapacityChange] = useState(false);
 	const [formData, setFormData] = useState({
 		table_name: "",
 		capacity: 1,
@@ -14,6 +15,9 @@ export default function TableForm() {
 	});
 	const [error, setError] = useState(null);
 	const formChange = (event) => {
+		if (event.target.id === "capacity") {
+			setCapacityChange(true);
+		}
 		const changeObj = { ...formData };
 		changeObj[event.target.id] = event.target.value;
 		changeObj.capacity = Number(changeObj.capacity);
@@ -23,12 +27,17 @@ export default function TableForm() {
 		event.preventDefault();
 		const abortController = new AbortController();
 		// create these api / validate functions
-		if (tableValidator(formData, setError)) {
+
+		if (tableValidator(formData, setError) && capacityChange) {
 			createTables(formData, abortController.signal)
 				.then(() => history.push(`/dashboard`))
 				.catch((err) => {
 					setError(err);
 				});
+		}
+		if (!capacityChange) {
+			setCapacityChange(true);
+			setError(new Error("You sure you want that capacity"));
 		}
 	};
 	return (
