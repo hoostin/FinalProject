@@ -1,7 +1,7 @@
 import { useHistory } from "react-router";
 import React, { useEffect, useState } from "react";
 import ErrorAlert from "./layout/ErrorAlert";
-import { listTables, getReservation } from "./utils/api";
+import { listTables, getReservation, assignReservation } from "./utils/api";
 import { useRouteMatch } from "react-router-dom";
 const { assignValidator } = require("./utils/validateTest");
 export default function ReservationSeatForm() {
@@ -11,21 +11,32 @@ export default function ReservationSeatForm() {
 	const [formData, setFormData] = useState({
 		table_name: "",
 		capacity: null,
+		table_id: null,
 	});
 	const [reservation, setReservation] = useState({});
 	const theSubmit = (event) => {
 		event.preventDefault();
+
 		const abortController = new AbortController();
 		if (assignValidator(formData, reservation, setError)) {
 			// call api function to assign reservation to a table
-			//assignReservation(formData.table_name, reservation_id);
-			history.push("/dashboard");
+			assignReservation(
+				formData.table_id,
+				reservation_id,
+				abortController.signal
+			);
+			//history.push("/dashboard");
 		}
 	};
 	const onChange = (event) => {
 		const value = event.target.value;
+		console.log(event.target.id);
 		const valueArr = value.split(",");
-		const valueObj = { table_name: valueArr[0], capacity: valueArr[1] };
+		const valueObj = {
+			table_name: valueArr[0],
+			capacity: valueArr[1],
+			table_id: valueArr[2],
+		};
 		setFormData(valueObj);
 	};
 	const { params } = useRouteMatch();
@@ -52,8 +63,7 @@ export default function ReservationSeatForm() {
 						id="table_id"
 						type="text"
 						name="table_id"
-						value={[formData.table_name, formData.capacity]}
-						placeholder="Table Name"
+						value={[formData.table_name, formData.capacity, formData.table_id]}
 						className="form-control"
 						onChange={onChange}
 						required
@@ -62,8 +72,7 @@ export default function ReservationSeatForm() {
 						{tables.map((table) => {
 							return (
 								<option
-									id={table.table_id}
-									value={[table.table_name, table.capacity]}
+									value={[table.table_name, table.capacity, table.table_id]}
 								>
 									{table.table_name} - {table.capacity}
 								</option>
