@@ -17,8 +17,15 @@ function update(table_id, reservation_id) {
 		.returning("*")
 		.then((createdRecords) => createdRecords[0]);
 }
+function read(table_id) {
+	return knex(tableName)
+		.where({ table_id })
+		.returning("*")
+		.then((createdRecords) => createdRecords[0]);
+}
 module.exports = {
 	create,
 	listByName,
 	update,
+	read,
 };
