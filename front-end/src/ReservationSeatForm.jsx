@@ -24,8 +24,11 @@ export default function ReservationSeatForm() {
 				formData.table_id,
 				reservation_id,
 				abortController.signal
-			);
-			//history.push("/dashboard");
+			)
+				.then(() => history.push("/dashboard"))
+				.catch((err) => {
+					setError(err);
+				});
 		}
 	};
 	const onChange = (event) => {
