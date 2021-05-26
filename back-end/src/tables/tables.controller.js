@@ -33,7 +33,14 @@ async function create(req, res) {
 	const added = await service.create(req.body.data);
 	res.status(201).json({ data: added });
 }
+async function update(req, res) {
+	const table_id = Number(req.params.table_id);
+	const reservation_id = Number(req.body.data.reservation_id);
+	const updated = await service.update(table_id, reservation_id);
+	res.status(201).json({ data: updated });
+}
 module.exports = {
 	list: asyncErrorBoundary(list),
 	create: [asyncErrorBoundary(validate), asyncErrorBoundary(create)],
+	update: asyncErrorBoundary(update),
 };
