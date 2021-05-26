@@ -7,7 +7,20 @@ function asDateString(date) {
 function today() {
 	return asDateString(new Date());
 }
-
+function assignValidator(formData, reservation, setError) {
+	setError(null);
+	if (!notNull(formData)) {
+		setError(new Error("Must choose a Table"));
+		return false;
+	}
+	if (reservation.people > formData.capacity) {
+		setError(
+			new Error("Must choose a Table with capacity greater than party size")
+		);
+		return false;
+	}
+	return true;
+}
 function compareKeys(a, b) {
 	const aKeys = Object.keys(a).sort();
 	const bKeys = Object.keys(b).sort();
@@ -179,4 +192,5 @@ module.exports = {
 	mobileValidate,
 	theValidator,
 	tableValidator,
+	assignValidator,
 };

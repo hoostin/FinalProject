@@ -13,5 +13,5 @@ router
 	.get(controller.list)
 	.post(controller.create)
 	.all(methodNotAllowed);
-
+router.route("/:id").get(controller.read).all(methodNotAllowed);
 module.exports = router;
