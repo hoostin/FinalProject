@@ -19,6 +19,27 @@ function notNull(obj) {
 	}
 	return true;
 }
+function tableValidator(formData, setError) {
+	setError(null);
+	const test = {
+		table_name: null,
+		capacity: 0,
+		reservation_id: null,
+	};
+	let message = "";
+	if (!compareKeys(formData, test)) {
+		message =
+			"Invalid data format provided. Requires {string: table_name, number: capacity}";
+		setError(new Error(message));
+		return false;
+	}
+	if (formData.table_name.length < 2) {
+		message = "Table Name must be at least 2 characters";
+		setError(new Error(message));
+		return false;
+	}
+	return true;
+}
 function theValidator(formData, setError) {
 	setError(null);
 	const test = {
@@ -157,4 +178,5 @@ module.exports = {
 	isTimeOpen,
 	mobileValidate,
 	theValidator,
+	tableValidator,
 };

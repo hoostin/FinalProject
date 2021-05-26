@@ -79,3 +79,19 @@ export async function createReservations(newRes, signal) {
 		.then(formatReservationDate)
 		.then(formatReservationTime);
 }
+
+export async function createTables(newRes, signal) {
+	const url = new URL(`${API_BASE_URL}/tables`);
+
+	return await fetchJson(
+		url,
+		{ body: JSON.stringify({ data: newRes }), headers, method: "POST", signal },
+		[]
+	);
+}
+
+export async function listTables(signal) {
+	const url = new URL(`${API_BASE_URL}/tables`);
+
+	return await fetchJson(url, { headers, signal }, []);
+}

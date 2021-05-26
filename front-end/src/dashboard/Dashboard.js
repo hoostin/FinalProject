@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { listReservations } from "../utils/api";
+import { listReservations, listTables } from "../utils/api";
 import ErrorAlert from "../layout/ErrorAlert";
 import { useHistory } from "react-router-dom";
 import useQuery from "../utils/useQuery";
 import Reservation from "../Reservation";
+import Table from "../Table";
 /**
  * Defines the dashboard page.
  * @param date
@@ -12,6 +13,7 @@ import Reservation from "../Reservation";
  */
 function Dashboard({ date }) {
 	const [reservations, setReservations] = useState([]);
+	const [tables, setTables] = useState([]);
 	const [reservationsError, setReservationsError] = useState(null);
 	const query = useQuery();
 	const theDate = query.get("date");
@@ -19,17 +21,19 @@ function Dashboard({ date }) {
 	useEffect(() => {
 		if (!theDate) history.push(`/dashboard?date=${date}`);
 	}, [query, history, theDate, date]);
-	useEffect(loadDashboard, [date]);
+	useEffect(loadDashboard, [date, history, theDate]);
 	useEffect(() => {}, [reservations]);
 	function loadDashboard() {
 		if (theDate !== date) {
 			history.push(`/dashboard?date=${date}`);
 		}
 		const abortController = new AbortController();
+		const abortController2 = new AbortController();
 		setReservationsError(null);
 		listReservations({ date }, abortController.signal)
 			.then(setReservations)
 			.catch(setReservationsError);
+		listTables(abortController2.signal).then(setTables);
 		return () => abortController.abort();
 	}
 	function changeDateUrl(scalar) {
@@ -46,13 +50,23 @@ function Dashboard({ date }) {
 	return (
 		<main>
 			<h1>Dashboard</h1>
-			<div className="d-md-flex mb-3">
-				<h4 className="mb-0">Reservations for date: {date}</h4>
-			</div>
+			<div className="d-md-flex mb-3"></div>
 			<ErrorAlert error={reservationsError} />
-			{reservations.map((reservation) => (
-				<Reservation data={reservation} />
-			))}
+			<div className="d-flex flex-row">
+				<div className="col-6">
+					<h4 className="mb-0">Reservations for date: {date}</h4>
+					{reservations.map((reservation) => (
+						<Reservation data={reservation} />
+					))}
+				</div>
+				<div className="col-6">
+					<h4>Tables</h4>
+					{tables.map((table) => (
+						<Table data={table} />
+					))}
+				</div>
+			</div>
+
 			<div>
 				<button
 					onClick={() => {
