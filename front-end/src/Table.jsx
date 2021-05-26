@@ -1,4 +1,5 @@
-export default function Table({ data }) {
+import Finish from "./Finish";
+export default function Table({ data, setTables }) {
 	return (
 		<div className="card ">
 			<div className="card-body">
@@ -12,9 +13,15 @@ export default function Table({ data }) {
 					}
 				>
 					{data.reservation_id ? "Occupied" : "Free"}
+					<div>
+						{data.reservation_id ? (
+							<Finish tableId={data.table_id} setTables={setTables} />
+						) : null}
+					</div>
 				</p>
 			</div>
 		</div>
 	);
 }
 //{data.reservation_id ? "red" : "green"}
+//

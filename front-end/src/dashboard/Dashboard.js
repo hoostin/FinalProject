@@ -62,7 +62,7 @@ function Dashboard({ date }) {
 				<div className="col-6">
 					<h4>Tables</h4>
 					{tables.map((table) => (
-						<Table data={table} />
+						<Table data={table} setTables={setTables} />
 					))}
 				</div>
 			</div>
