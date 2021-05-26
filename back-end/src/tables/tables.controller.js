@@ -72,8 +72,30 @@ async function update(req, res) {
 	const updated = await service.update(table_id, reservation_id);
 	res.status(200).json({ data: updated });
 }
+async function destroyValidate(req, res, next) {
+	const table = await service.read(Number(req.params.table_id));
+	if (!table) {
+		return next({
+			status: 404,
+			message: `table does not exist ${req.params.table_id} `,
+		});
+	}
+	if (!table.reservation_id) {
+		return next({
+			status: 400,
+			message: "table is not occupied",
+		});
+	}
+	next();
+}
+async function destroy(req, res) {
+	const table_id = Number(req.params.table_id);
+	const updated = await service.update(table_id, null);
+	res.status(200).json({ date: updated });
+}
 module.exports = {
 	list: asyncErrorBoundary(list),
 	create: [asyncErrorBoundary(validate), asyncErrorBoundary(create)],
 	update: [asyncErrorBoundary(updateValidate), asyncErrorBoundary(update)],
+	destroy: [asyncErrorBoundary(destroyValidate), asyncErrorBoundary(destroy)],
 };
