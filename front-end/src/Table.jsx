@@ -11,14 +11,14 @@ export default function Table({ data, setTables }) {
 							? "card-text text-danger"
 							: "card-text text-success"
 					}
+					data-table-id-status={data.table_id}
 				>
 					{data.reservation_id ? "Occupied" : "Free"}
-					<div>
-						{data.reservation_id ? (
-							<Finish tableId={data.table_id} setTables={setTables} />
-						) : null}
-					</div>
 				</p>
+
+				{data.reservation_id ? (
+					<Finish tableId={data.table_id} setTables={setTables} />
+				) : null}
 			</div>
 		</div>
 	);

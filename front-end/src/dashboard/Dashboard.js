@@ -18,11 +18,12 @@ function Dashboard({ date }) {
 	const query = useQuery();
 	const theDate = query.get("date");
 	const history = useHistory();
+
 	useEffect(() => {
 		if (!theDate) history.push(`/dashboard?date=${date}`);
 	}, [query, history, theDate, date]);
 	useEffect(loadDashboard, [date, history, theDate]);
-	useEffect(() => {}, [reservations]);
+
 	function loadDashboard() {
 		if (theDate !== date) {
 			history.push(`/dashboard?date=${date}`);

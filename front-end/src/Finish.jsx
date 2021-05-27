@@ -8,7 +8,7 @@ export default function Finish({ tableId, setTables }) {
 		) {
 			const abortController = new AbortController();
 			finishTable(tableId, abortController.signal)
-				.then(listTables().then(setTables))
+				.then(() => listTables().then(setTables))
 				.catch(listTables().then(setTables));
 		}
 	};
