@@ -28,7 +28,7 @@ function update(id, status) {
 		.then((createdRecords) => createdRecords[0]);
 }
 function search(mobile_number) {
-	return knex("reservations")
+	return knex(tableName)
 		.whereRaw(
 			"translate(mobile_number, '() -', '') like ?",
 			`%${mobile_number.replace(/\D/g, "")}%`

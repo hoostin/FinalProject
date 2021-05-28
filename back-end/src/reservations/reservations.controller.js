@@ -18,9 +18,6 @@ async function list(req, res) {
 			data: [...reservations],
 		});
 	}
-	return res.json({
-		data: [`${req.query}`],
-	});
 }
 async function validate(req, res, next) {
 	const added = req.body.data;

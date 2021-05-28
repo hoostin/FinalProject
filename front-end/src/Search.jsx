@@ -14,7 +14,13 @@ export default function Search() {
 		setPhoneNumber(phoneNumber1);
 	};
 	const theSubmit = (event) => {
-		searchReservation().then(setReservations).then(setSubmit(true));
+		event.preventDefault();
+
+		searchReservation(phoneNumber)
+			.then((data) => {
+				setReservations(data);
+			})
+			.then(setSubmit(true));
 	};
 	return (
 		<div>
