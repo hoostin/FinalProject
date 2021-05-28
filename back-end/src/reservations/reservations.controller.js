@@ -24,11 +24,15 @@ async function validate(req, res, next) {
 			message:
 				"Invalid data format provided. Requires {string: [first_name, last_name, mobile_number], date: reservation_date, time: reservation_time, number: people}",
 		});
-	if (added.status !== `booked`)
-		return next({
-			status: 400,
-			message: `Invalid data format provided. ${added.status} `,
-		});
+	if (added.status !== `booked`) {
+		if (!added.status) req.body.data.status = "booked";
+		else {
+			return next({
+				status: 400,
+				message: `Invalid data format provided. ${added.status} `,
+			});
+		}
+	}
 	if (!theValidator(added, setError) || typeof added.people != "number") {
 		if (!message) {
 			message = "people must be a number";

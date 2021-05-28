@@ -82,12 +82,12 @@ function theValidator(formData, setError) {
 		reservation_date: null,
 		reservation_time: null,
 		people: 0,
-		status,
+		status: "",
 	};
 	let message = "";
 
 	if (
-		!(compareKeys(formData, test) || compareKeys(formData, test2)) ||
+		(!compareKeys(formData, test) && !compareKeys(formData, test2)) ||
 		!notNull(formData)
 	) {
 		message =

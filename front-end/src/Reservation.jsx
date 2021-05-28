@@ -9,7 +9,16 @@ export default function Reservation({ data }) {
 				<p className="card-text">Time: {data.reservation_time}</p>
 				<p className="card-text">Party Size: {data.people}</p>
 				<p data-reservation-id-status={data.reservation_id}>
-					Status: {data.status}
+					Status:{" "}
+					<span
+						className={
+							data.status === "booked"
+								? "card-text text-primary"
+								: "card-text text-success"
+						}
+					>
+						{data.status}
+					</span>
 				</p>
 				{data.status === "booked" ? (
 					<a

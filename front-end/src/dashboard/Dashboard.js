@@ -23,7 +23,12 @@ function Dashboard({ date }) {
 		if (!theDate) history.push(`/dashboard?date=${date}`);
 	}, [query, history, theDate, date]);
 	useEffect(loadDashboard, [date, history, theDate]);
-
+	useEffect(() => {
+		const abortController = new AbortController();
+		listReservations({ date }, abortController.signal)
+			.then(setReservations)
+			.catch(setReservationsError);
+	}, [tables]);
 	function loadDashboard() {
 		if (theDate !== date) {
 			history.push(`/dashboard?date=${date}`);
@@ -56,9 +61,11 @@ function Dashboard({ date }) {
 			<div className="d-flex flex-row">
 				<div className="col-6">
 					<h4 className="mb-0">Reservations for date: {date}</h4>
-					{reservations.map((reservation) => (
-						<Reservation data={reservation} />
-					))}
+					{reservations.map((reservation) =>
+						reservation.status === " finished" ? null : (
+							<Reservation data={reservation} />
+						)
+					)}
 				</div>
 				<div className="col-6">
 					<h4>Tables</h4>
