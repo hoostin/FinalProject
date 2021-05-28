@@ -7,9 +7,19 @@ const service = require("./reservations.service");
 const { theValidator } = require("../../../front-end/src/utils/validateTest");
 
 async function list(req, res) {
-	const reservations = await service.listByDate(req.query.date);
-	res.json({
-		data: [...reservations],
+	if (req.query.date) {
+		const reservations = await service.listByDate(req.query.date);
+		return res.json({
+			data: [...reservations],
+		});
+	} else if (req.query.mobile_number) {
+		const reservations = await service.search(req.query.mobile_number);
+		return res.json({
+			data: [...reservations],
+		});
+	}
+	return res.json({
+		data: [`${req.query}`],
 	});
 }
 async function validate(req, res, next) {

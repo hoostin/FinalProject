@@ -115,7 +115,13 @@ export async function assignStatus(reservation_id, status, signal) {
 		[]
 	);
 }
+export async function searchReservation(phoneNumber, signal) {
+	const url = new URL(
+		`${API_BASE_URL}/reservations/?mobile_phone=${phoneNumber}`
+	);
 
+	return await fetchJson(url, { headers, signal }, []);
+}
 export async function assignReservation(table_id, reservation_id, signal) {
 	const url = new URL(`${API_BASE_URL}/tables/${table_id}/seat`);
 
