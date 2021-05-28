@@ -75,9 +75,21 @@ function theValidator(formData, setError) {
 		reservation_time: null,
 		people: 0,
 	};
+	const test2 = {
+		first_name: null,
+		last_name: null,
+		mobile_number: null,
+		reservation_date: null,
+		reservation_time: null,
+		people: 0,
+		status,
+	};
 	let message = "";
 
-	if (!compareKeys(formData, test) || !notNull(formData)) {
+	if (
+		!(compareKeys(formData, test) || compareKeys(formData, test2)) ||
+		!notNull(formData)
+	) {
 		message =
 			"Invalid data format provided. Requires {string: [first_name, last_name, mobile_number], date: reservation_date, time: reservation_time, number: people}";
 

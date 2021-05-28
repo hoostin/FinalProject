@@ -41,6 +41,7 @@ async function updateValidate(req, res, next) {
 	const reservation = await reservationService.read(
 		req.body.data.reservation_id
 	);
+	res.locals.reservation = reservation;
 	const table = await service.read(Number(req.params.table_id));
 	if (!reservation) {
 		return next({
@@ -48,6 +49,11 @@ async function updateValidate(req, res, next) {
 			message: `Invalid data format provided. Requires reservation_id ${req.body.data.reservation_id} to exist in database`,
 		});
 	}
+	if (reservation.status === "seated")
+		return next({
+			status: 400,
+			message: `reservation was already seated`,
+		});
 	if (table.capacity < reservation.people) {
 		return next({
 			status: 400,
@@ -69,6 +75,7 @@ async function create(req, res) {
 async function update(req, res) {
 	const table_id = Number(req.params.table_id);
 	const reservation_id = Number(req.body.data.reservation_id);
+	await reservationService.update(reservation_id, "seated");
 	const updated = await service.update(table_id, reservation_id);
 	res.status(200).json({ data: updated });
 }
@@ -90,7 +97,9 @@ async function destroyValidate(req, res, next) {
 }
 async function destroy(req, res) {
 	const table_id = Number(req.params.table_id);
+	const table = await service.read(table_id);
 	const updated = await service.update(table_id, null);
+	await reservationService.update(table.reservation_id, "finished");
 	res.status(200).json({ date: updated });
 }
 module.exports = {

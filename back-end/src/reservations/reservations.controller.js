@@ -24,6 +24,11 @@ async function validate(req, res, next) {
 			message:
 				"Invalid data format provided. Requires {string: [first_name, last_name, mobile_number], date: reservation_date, time: reservation_time, number: people}",
 		});
+	if (added.status !== `booked`)
+		return next({
+			status: 400,
+			message: `Invalid data format provided. ${added.status} `,
+		});
 	if (!theValidator(added, setError) || typeof added.people != "number") {
 		if (!message) {
 			message = "people must be a number";
@@ -43,8 +48,35 @@ async function read(req, res) {
 		data: reservation,
 	});
 }
+async function validateUpdate(req, res, next) {
+	const { id } = req.params;
+	const { status } = req.body.data;
+	const reservation = await service.read(id);
+	if (status === "unknown")
+		return next({
+			status: 400,
+			message: `${status} status doesnt exist but at least you tried`,
+		});
+	if (!reservation) {
+		return next({
+			status: 404,
+			message: `${id} doesnt exist but at least you tried`,
+		});
+	}
+	if (reservation.status === "finished") {
+		return next({ status: 400, message: "its finished you are too late " });
+	}
+	next();
+}
+async function update(req, res) {
+	const { id } = req.params;
+	const { status } = req.body.data;
+	const updated = await service.update(id, status);
+	res.status(200).json({ data: updated });
+}
 module.exports = {
 	list: asyncErrorBoundary(list),
 	create: [asyncErrorBoundary(validate), asyncErrorBoundary(create)],
-	read: asyncErrorBoundary(read)
+	read: asyncErrorBoundary(read),
+	update: [asyncErrorBoundary(validateUpdate), asyncErrorBoundary(update)],
 };

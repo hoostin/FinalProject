@@ -101,6 +101,20 @@ export async function getReservation(reservation_id, signal) {
 
 	return await fetchJson(url, { headers, signal }, []);
 }
+export async function assignStatus(reservation_id, status, signal) {
+	const url = new URL(`${API_BASE_URL}/reservations/${reservation_id}/status`);
+
+	return await fetchJson(
+		url,
+		{
+			body: JSON.stringify({ data: { status } }),
+			headers,
+			method: "PUT",
+			signal,
+		},
+		[]
+	);
+}
 
 export async function assignReservation(table_id, reservation_id, signal) {
 	const url = new URL(`${API_BASE_URL}/tables/${table_id}/seat`);
@@ -115,6 +129,7 @@ export async function assignReservation(table_id, reservation_id, signal) {
 		},
 		[]
 	);
+	// assignStatus(reservation_id, "seated", signal),
 }
 export async function finishTable(table_id, signal) {
 	const url = new URL(`${API_BASE_URL}/tables/${table_id}/seat`);
