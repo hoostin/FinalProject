@@ -56,8 +56,10 @@ async function create(req, res) {
 	const added = await service.create(req.body.data);
 	res.status(201).json({ data: added });
 }
-async function read(req, res) {
+async function read(req, res, next) {
 	const reservation = await service.read(req.params.id);
+	if (!reservation)
+		return next({ status: 404, message: `${req.params.id} doesnt exist` });
 	res.json({
 		data: reservation,
 	});
@@ -115,7 +117,7 @@ async function update(req, res) {
 async function updateReservation(req, res) {
 	const { id } = req.params;
 	const reservation = req.body.data;
-	console.log(reservation);
+
 	const updated = await service.updateReservation(id, reservation);
 	res.status(200).json({ data: updated });
 }
