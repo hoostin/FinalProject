@@ -27,6 +27,13 @@ function update(id, status) {
 		.returning("*")
 		.then((createdRecords) => createdRecords[0]);
 }
+function updateReservation(id, reservation) {
+	return knex(tableName)
+		.where({ reservation_id: id })
+		.update(reservation)
+		.returning("*")
+		.then((createdRecords) => createdRecords[0]);
+}
 function search(mobile_number) {
 	return knex(tableName)
 		.whereRaw(
@@ -40,5 +47,6 @@ module.exports = {
 	create,
 	read,
 	update,
+	updateReservation,
 	search,
 };

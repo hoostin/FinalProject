@@ -84,6 +84,7 @@ function theValidator(formData, setError) {
 		people: 0,
 		status: "",
 	};
+
 	let message = "";
 
 	if (
