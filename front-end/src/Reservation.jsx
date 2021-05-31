@@ -1,4 +1,9 @@
 export default function Reservation({ data }) {
+	function cancelReservation(){
+		if(window.confirm("Do you want to cancel this reservation? This cannot be undone.")){
+
+		}
+	}
 	return (
 		<div className="card ">
 			<div className="card-body">
@@ -27,6 +32,9 @@ export default function Reservation({ data }) {
 					>
 						Seat
 					</a>
+					<a href={`/reservations/${data.reservation_id}/status`}
+					className="btn btn-secondary "> Edit</a>
+					<button onClick={cancelReservation}	className="btn btn-danger " data-reservation-id-cancel={reservation.reservation_id}>Cancel</button>
 				) : null}
 			</div>
 		</div>
