@@ -1,5 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { createReservations, getReservation } from "./utils/api";
+import {
+	createReservations,
+	getReservation,
+	updateReservation,
+} from "./utils/api";
 import { useHistory, useRouteMatch } from "react-router-dom";
 import ErrorAlert from "./layout/ErrorAlert";
 
@@ -34,15 +38,30 @@ export default function ReservationForm() {
 	const theSubmit = (event) => {
 		event.preventDefault();
 		const abortController = new AbortController();
-
-		if (theValidator(formData, setError)) {
-			createReservations(formData, abortController.signal)
-				.then(() =>
-					history.push(`/dashboard?date=${formData.reservation_date}`)
-				)
-				.catch((err) => {
-					setError(err);
-				});
+		if (type === "new") {
+			if (theValidator(formData, setError)) {
+				createReservations(formData, abortController.signal)
+					.then(() =>
+						history.push(`/dashboard?date=${formData.reservation_date}`)
+					)
+					.catch((err) => {
+						setError(err);
+					});
+			}
+		} else {
+			if (existingData.status === "booked") {
+				if (theValidator(formData, setError)) {
+					updateReservation(
+						formData,
+						abortController.signal,
+						params.reservation_id
+					)
+						.then(() => history.goBack())
+						.catch((err) => {
+							setError(err);
+						});
+				}
+			}
 		}
 	};
 	useEffect(() => {
