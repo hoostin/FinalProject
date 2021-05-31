@@ -84,7 +84,7 @@ export default function ReservationSeatForm() {
 					</select>
 				</div>
 
-				<button type="submit" className="btn btn-primary">
+				<button type="submit" className="btn btn-primary mr-1">
 					Submit
 				</button>
 				<button onClick={() => history.goBack()} className="btn btn-danger">
