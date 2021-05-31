@@ -27,14 +27,14 @@ export default function Search() {
 			<h2>Search</h2>
 			<form name="reservation" onSubmit={theSubmit}>
 				<input
-					className="form-control col-4"
+					className="form-control col-sm-6 col-md-5 col-lg-3"
 					type="text"
 					name="mobile_number"
 					placeholder="Enter a customer's phone number"
 					onChange={phoneChange}
 					value={phoneNumber}
 				></input>
-				<button type="submit" className="btn btn-primary">
+				<button type="submit" className="btn btn-primary mt-2">
 					Find
 				</button>
 			</form>

@@ -41,13 +41,13 @@ export default function Reservation({ data, setReservations, date }) {
 					<div>
 						<a
 							href={`/reservations/${data.reservation_id}/seat`}
-							className="btn btn-primary"
+							className="btn btn-primary mr-1"
 						>
 							Seat
 						</a>
 						<a
 							href={`/reservations/${data.reservation_id}/edit`}
-							className="btn btn-secondary "
+							className="btn btn-secondary mr-1"
 						>
 							{" "}
 							Edit

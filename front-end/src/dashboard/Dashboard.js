@@ -56,13 +56,15 @@ function Dashboard({ date }) {
 	return (
 		<main>
 			<h1>Dashboard</h1>
+			
 			<div className="d-md-flex mb-3"></div>
 			<ErrorAlert error={reservationsError} />
 			<div className="d-flex flex-row">
 				<div className="col-6">
 					<h4 className="mb-0">Reservations for date: {date}</h4>
 					{reservations.map((reservation) =>
-						reservation.status === "finished" || reservation.status === "cancelled" ? null : (
+						reservation.status === "finished" ||
+						reservation.status === "cancelled" ? null : (
 							<Reservation
 								data={reservation}
 								setReservations={setReservations}
@@ -78,13 +80,12 @@ function Dashboard({ date }) {
 					))}
 				</div>
 			</div>
-
-			<div>
+			<div 	className="ml-3">
 				<button
 					onClick={() => {
 						changeDateUrl(1);
 					}}
-					className="btn btn-primary"
+					className="btn btn-primary mr-1"
 				>
 					Next
 				</button>
@@ -92,7 +93,7 @@ function Dashboard({ date }) {
 					onClick={() => {
 						changeDateUrl(-1);
 					}}
-					className="btn btn-secondary"
+					className="btn btn-secondary mr-1"
 				>
 					Previous
 				</button>
