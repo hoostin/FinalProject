@@ -56,7 +56,9 @@ export default function ReservationForm() {
 						abortController.signal,
 						params.reservation_id
 					)
-						.then(() => history.goBack())
+						.then(() =>
+							history.push(`/dashboard?date=${formData.reservation_date}`)
+						)
 						.catch((err) => {
 							setError(err);
 						});
