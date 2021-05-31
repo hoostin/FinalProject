@@ -62,8 +62,12 @@ function Dashboard({ date }) {
 				<div className="col-6">
 					<h4 className="mb-0">Reservations for date: {date}</h4>
 					{reservations.map((reservation) =>
-						reservation.status === " finished" ? null : (
-							<Reservation data={reservation} />
+						reservation.status === "finished" || reservation.status === "cancelled" ? null : (
+							<Reservation
+								data={reservation}
+								setReservations={setReservations}
+								date={date}
+							/>
 						)
 					)}
 				</div>

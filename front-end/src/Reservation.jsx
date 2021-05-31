@@ -1,7 +1,19 @@
-export default function Reservation({ data }) {
-	function cancelReservation(){
-		if(window.confirm("Do you want to cancel this reservation? This cannot be undone.")){
-
+import { assignStatus, listReservations } from "./utils/api";
+export default function Reservation({ data, setReservations, date }) {
+	function cancelReservation() {
+		if (
+			window.confirm(
+				"Do you want to cancel this reservation? This cannot be undone."
+			)
+		) {
+			const abortController = new AbortController();
+			assignStatus(data.reservation_id, "cancelled")
+				.then((result) => {
+					listReservations({ date }, abortController.signal).then(
+						setReservations
+					);
+				})
+				.catch((err) => {});
 		}
 	}
 	return (
@@ -26,15 +38,28 @@ export default function Reservation({ data }) {
 					</span>
 				</p>
 				{data.status === "booked" ? (
-					<a
-						href={`/reservations/${data.reservation_id}/seat`}
-						className="btn btn-primary"
-					>
-						Seat
-					</a>
-					<a href={`/reservations/${data.reservation_id}/status`}
-					className="btn btn-secondary "> Edit</a>
-					<button onClick={cancelReservation}	className="btn btn-danger " data-reservation-id-cancel={reservation.reservation_id}>Cancel</button>
+					<div>
+						<a
+							href={`/reservations/${data.reservation_id}/seat`}
+							className="btn btn-primary"
+						>
+							Seat
+						</a>
+						<a
+							href={`/reservations/${data.reservation_id}/edit`}
+							className="btn btn-secondary "
+						>
+							{" "}
+							Edit
+						</a>
+						<button
+							onClick={cancelReservation}
+							className="btn btn-danger "
+							data-reservation-id-cancel={data.reservation_id}
+						>
+							Cancel
+						</button>
+					</div>
 				) : null}
 			</div>
 		</div>
