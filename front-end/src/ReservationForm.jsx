@@ -7,7 +7,7 @@ import {
 import { useHistory, useRouteMatch } from "react-router-dom";
 import ErrorAlert from "./layout/ErrorAlert";
 
-import  { mobileValidate, theValidator } = from "./utils/validate";
+import  {mobileValidate, theValidator}   from "./utils/validate";
 export default function ReservationForm() {
 	const history = useHistory();
 	const { params, url, path } = useRouteMatch();

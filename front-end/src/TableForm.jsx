@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import ErrorAlert from "./layout/ErrorAlert";
 import { createTables } from "./utils/api";
 
-import { tableValidator } = from "./utils/validate";
+import { tableValidator }  from "./utils/validate";
 
 export default function TableForm() {
 	const history = useHistory();

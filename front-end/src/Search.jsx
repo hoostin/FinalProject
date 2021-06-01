@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { searchReservation } from "./utils/api";
 import Reservation from "./Reservation";
-import  { mobileValidate } = from "./utils/validate";
+import  { mobileValidate }  from "./utils/validate";
 
 export default function Search() {
 	const [phoneNumber, setPhoneNumber] = useState("");

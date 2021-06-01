@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import ErrorAlert from "./layout/ErrorAlert";
 import { listTables, getReservation, assignReservation } from "./utils/api";
 import { useRouteMatch } from "react-router-dom";
-import { assignValidator } = from "./utils/validate";
+import { assignValidator }  from "./utils/validate";
 export default function ReservationSeatForm() {
 	// get tables
 	// get reservation id from url
