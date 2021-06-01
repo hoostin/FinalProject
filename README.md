@@ -10,7 +10,7 @@ This page displays the reservations for a specific date that aren't `completed` 
 
 ### `DashBoard` ScreenShot
 
-![Dashboard](./Final_Capstone_Screenshots/Dashboard.png)
+![Dashboard](./pictures/Dashboard.png)
 
 ## `/search`
 
@@ -18,11 +18,11 @@ This page allows the user to search for a reservation by phone number either par
 
 ### `Before` Search screenshot
 
-![Search Before](./Final_Capstone_Screenshots/Search_before.png)
+![Search Before](./pictures/Search_before.png)
 
 ### `After` search screenshot
 
-![Search After](./Final_Capstone_Screenshots/Search_after.png)
+![Search After](./pictures/Search_after.png)
 
 ## `/reservations/new`
 
@@ -32,11 +32,11 @@ Once a new reservation has been submitted successfully it will redirect to the d
 
 ### `Before` Submit Screenshot
 
-![New Reservation Before](./Final_Capstone_Screenshots/NewReservation_before.png)
+![New Reservation Before](./pictures/NewReservation_before.png)
 
 ### `After` Submit screenshot
 
-![New Reservation After](./Final_Capstone_Screenshots/NewReservation_after.png)
+![New Reservation After](./pictures/NewReservation_after.png)
 
 ## `/reservations/:reservation_id/edit`
 
@@ -44,15 +44,15 @@ This route is called by clicking `edit` on an existing reservation that has the 
 
 ### Dashboard `Edit Button` Screenshot
 
-![Edit Reservation Button](./Final_Capstone_Screenshots/EditButton.png)
+![Edit Reservation Button](./pictures/EditButton.png)
 
 ### `Before` Submit Screenshot
 
-![Edit Reservation Before](./Final_Capstone_Screenshots/EditReservation_before.png)
+![Edit Reservation Before](./pictures/EditReservation_before.png)
 
 ### `After` Submit Screenshot
 
-![Edit Reservation After](./Final_Capstone_Screenshots/EditReservation_after.png)
+![Edit Reservation After](./pictures/EditReservation_after.png)
 
 ## `/reservations/:reservation_id/seat`
 
@@ -60,19 +60,19 @@ This route is called by clicking `seat` on an existing reservation that has the 
 
 ### Dashboard `Seat Button` screenshot
 
-![Seat Button](./Final_Capstone_Screenshots/SeatButton.png)
+![Seat Button](./pictures/SeatButton.png)
 
 ### `Before` Submit Screenshot
 
-![Seat Before](./Final_Capstone_Screenshots/SeatFormBefore.png)
+![Seat Before](./pictures/SeatFormBefore.png)
 
 ### `After` Submit Screenshot
 
-![Seat After](./Final_Capstone_Screenshots/SeatFormAfter.png)
+![Seat After](./pictures/SeatFormAfter.png)
 
 ### `Finish button` Screenshot
 
-![Seat After](./Final_Capstone_Screenshots/FinishButton.png)
+![Seat After](./pictures/FinishButton.png)
 
 ## `/tables/new`
 
@@ -82,11 +82,11 @@ Once a new table has been submitted successfully it will redirect to the dashboa
 
 ### `Before` submit Screenshot
 
-![Table Before](./Final_Capstone_Screenshots/NewTableBefore.png)
+![Table Before](./pictures/NewTableBefore.png)
 
 ### `After` submit Screenshot
 
-![Table After](./Final_Capstone_Screenshots/NewTableAfter.png)
+![Table After](./pictures/NewTableAfter.png)
 
 # API Documentation
 
