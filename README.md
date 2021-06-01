@@ -8,7 +8,7 @@ This is My Thinkful Capstone Project. This project is a PERN-Stack (PostgreSQL, 
 
 This page displays the reservations for a specific date that aren't `completed` or `cancelled` as well as displaying all tables. The default date if no date is given is the current date.
 
-### insert `screenshot` here (taken)
+### `DashBoard` ScreenShot
 
 ![Dashboard](./Final_Capstone_Screenshots/Dashboard.jpg)
 
