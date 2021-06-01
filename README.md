@@ -7,52 +7,61 @@ This is My Thinkful Capstone Project. This project is a PERN-Stack (PostgreSQL, 
 ## `/dashboard` And `/dashboard?date=YYYY-MM-DD` - Home Page
 
 This page displays the reservations for a specific date that aren't `completed` or `cancelled` as well as displaying all tables. The default date if no date is given is the current date.
+
 ### insert `screenshot` here (taken)
 
+![Dashboard](./Final_Capstone_Screenshots/Dashboard.jpg)
+
 ## `/search`
+
 This page allows the user to search for a reservation by phone number either partial or full phone number then shows a list of matching reservations.
-### insert before search `screenshot` (taken)
 
-
-### insert after search `screenshot` (taken)
-
-
+###  `Before` Search screenshot 
+![Search Before](./Final_Capstone_Screenshots/Search_before.jpg)
+###  `After` search screenshot 
+![Search After](./Final_Capstone_Screenshots/Search_after.jpg)
 ## `/reservations/new`
+
 This route displays a form that allows the user to create a new reservation.
 
 Once a new reservation has been submitted successfully it will redirect to the dashboard/`date of new reservation` displaying the new reservation and all other reservations for that date.
 
-### insert before submit `screenshot` (taken)
-
-### insert after submit `screenshot` (taken)
-
+###  `Before` Submit Screenshot 
+![New Reservation Before](./Final_Capstone_Screenshots/NewReservation_before.jpg)
+### `After` Submit screenshot 
+![New Reservation After](./Final_Capstone_Screenshots/NewReservation_after.jpg)
 ## `/reservations/:reservation_id/edit`
+
 This route is called by clicking `edit` on an existing reservation that has the status `booked` (no other status can be edited). Once edit is clicked it goes to a form identical to the new reservation form but with current values filled in. When successfully submitted the form redirects to the dashboard/`date of reservation`.
-### insert dashboard edit `screenshot`
 
-### insert before submit `screenshot`
-
-### insert after submit `screenshot`
-
+###  Dashboard `Edit Button` Screenshot
+![Edit Reservation Button](./Final_Capstone_Screenshots/EditButton.jpg)
+### `Before` Submit Screenshot
+![Edit Reservation Before](./Final_Capstone_Screenshots/EditReservation_before.jpg)
+###  `After` Submit Screenshot
+![Edit Reservation After](./Final_Capstone_Screenshots/EditReservation_after.jpg)
 ## `/reservations/:reservation_id/seat`
+
 This route is called by clicking `seat` on an existing reservation that has the status `booked` (no other status can be seated). Displays a form to assign a reservation a table. After the form is successfully submitted it redirects to dashboard. After a table has been seated the table should show `Occupied` and display a `Finish` button that when clicked finishes the reservation (which hides the reservation) then changes table's status to `free`.
 
-### insert dashboard seat `screenshot`
-
-### insert before submit `screenshot`
-
-### insert after submit `screenshot`
-
-### insert finish button `screenshot`
-
+### Dashboard `Seat Button` screenshot
+![Seat Button](./Final_Capstone_Screenshots/SeatButton.jpg)
+### `Before` Submit Screenshot
+![Seat Before](./Final_Capstone_Screenshots/SeatFormBefore.jpg)
+### `After` Submit Screenshot
+![Seat After](./Final_Capstone_Screenshots/SeatFormAfter.jpg)
+### `Finish button` Screenshot
+![Seat After](./Final_Capstone_Screenshots/FinishButton.jpg)
 ## `/tables/new`
-This route displays a form to create a new table. 
+
+This route displays a form to create a new table.
 
 Once a new table has been submitted successfully it will redirect to the dashboard/`current-date` displaying the new table .
-### insert before submit `screenshot`
 
-### insert after submit `screenshot`
-
+###  `Before` submit Screenshot
+![Table Before](./Final_Capstone_Screenshots/NewTableBefore.jpg)
+###  `After` submit Screenshot
+![Table After](./Final_Capstone_Screenshots/NewTableAfter.jpg)
 # API Documentation
 
 ## `/reservations`
@@ -296,7 +305,7 @@ data: {
 
 # Installation Instructions
 
-In order to effectively install and use this application locally, you will need to either clone the repo  or download the zip. You will then need to navigate to the top level of the project in your bash terminal and:
+In order to effectively install and use this application locally, you will need to either clone the repo or download the zip. You will then need to navigate to the top level of the project in your bash terminal and:
 
 1. run `npm i`
 2. `cd front-end && npm i`
