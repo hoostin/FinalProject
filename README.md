@@ -2,7 +2,7 @@
 
 This is My Thinkful Capstone Project. This project is a PERN-Stack (PostgreSQL, Express, React, and Node. js.) application that represents a Reservation System for a restaurant called Periodic Tables. This application gives users the ability to create/edit reservations, seat a reservation at a table, create tables, and search for a reservation by phone number.
 
-# [Live Project Link](https://final-project-frontend-hqdpol8rc-hoostin.vercel.app/)
+# [Live Project Link](https://final-project-frontend-sigma.vercel.app/)
 # React Application
 
 ## `/dashboard` And `/dashboard?date=YYYY-MM-DD` - Home Page
